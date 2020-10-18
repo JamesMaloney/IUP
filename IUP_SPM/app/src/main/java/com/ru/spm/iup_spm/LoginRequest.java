@@ -5,6 +5,7 @@ public class LoginRequest {
     private String kennitala;
     private String password;
 
+
     public String getKennitala() {
         return kennitala;
     }

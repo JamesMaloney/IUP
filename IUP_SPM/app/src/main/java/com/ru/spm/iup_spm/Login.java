@@ -3,14 +3,20 @@ package com.ru.spm.iup_spm;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-    Button button_back;
-    Button button_login;
-    EditText kennitala, password;
+    Button button_back, button_login;
+    EditText Kennitala, Password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +29,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }}
         );
         button_login = (Button)findViewById(R.id.login);
-        button_login.setOnClickListener(this);
+        button_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(Kennitala.getText().toString()) || TextUtils.isEmpty(Password.getText().toString())){
+                    String message = "All inputs are required!";
+                    Toast.makeText(Login.this, message,Toast.LENGTH_LONG).show();
+                }else{
+                    LoginRequest loginRequest = new LoginRequest();
+                    loginRequest.setKennitala(Kennitala.getText().toString());
+                    loginRequest.setPassword(Password.getText().toString());
+                    loginUser(loginRequest);
+                }
+            }
+        });
 
-        kennitala = (EditText)findViewById(R.id.kennitala);
-        password = (EditText)findViewById(R.id.password);
+        Kennitala = (EditText)findViewById(R.id.kennitala);
+        Password = (EditText)findViewById(R.id.password);
 
     }
 
@@ -35,17 +54,39 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         startActivity(intent);
     }
 
-    private void open_signin() {
-        Intent intent = new Intent(this,Home.class);
-        startActivity(intent);
-    }
+    public void loginUser(LoginRequest loginRequest){
+        Call<LoginResponse> loginRequestCall = ApiClient.getServiceLogin().loginUser(loginRequest);
+        loginRequestCall.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()){
+                    response.body();
+                    LoginResponse loginResponse = new LoginResponse();
+                    loginResponse.setToken(response.body().getToken());
+                    loginResponse.setName(response.body().getName());
+                    loginResponse.setKennitala(response.body().getKennitala());
+                    //Log.e("KENNITALA","=========>>>> "+loginResponse.getKennitala());
+                    //Log.e("TOKEN","=========>>>> "+loginResponse.getToken());
+                    //Log.e("NAME","=========>>>> "+loginResponse.getName());
+                    Intent intent = new Intent(Login.this,Home.class);
+                    intent.putExtra("data",loginResponse);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    String message = "An error during login occurred please try later.";
+                    Toast.makeText(Login.this, message,Toast.LENGTH_LONG).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                String message = "Failed";
+                Toast.makeText(Login.this, message,Toast.LENGTH_LONG).show();
+            }
+        });
+    }
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button_sign_up:
-
-                break;
         }
-    }
+
 }

@@ -6,7 +6,7 @@ import retrofit2.http.POST;
 
 public interface UserService {
 
-    @POST("login/")
+    @POST("getToken/")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
     @POST("registerUser/")

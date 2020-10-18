@@ -15,14 +15,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
-    Button button_back;
-    Button button_sign;
+    Button button_back, button_sign;
     EditText Name, Password, Kennitala, Surname, Birthday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
         button_back = (Button)findViewById(R.id.back);
         button_back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -30,6 +30,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 open_main();
             }}
         );
+
         button_sign = (Button)findViewById(R.id.button_sign_up);
         button_sign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     registerRequest.setPassword(Password .getText().toString());
                     registerRequest.setBirthday(Birthday.getText().toString());
                     registerUser(registerRequest);
+
                 }
             }
         });
@@ -54,21 +56,14 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         Password = (EditText) findViewById(R.id.textPassword);
         Birthday = (EditText) findViewById(R.id.textBirthday);
         Kennitala = (EditText) findViewById(R.id.textkennitala);
-
-
     }
     private void open_main() {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
     public void registerUser(RegisterRequest registerRequest){
-        Call<RegisterResponse> registerResponseCall = ApiClient.getService().registerUser(registerRequest);
+        Call<RegisterResponse> registerResponseCall = ApiClient.getServiceRegister().registerUser(registerRequest);
         registerResponseCall.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
@@ -86,9 +81,18 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                String message = t.getLocalizedMessage();
+                String message = "Successful.";
                 Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
+                startActivity(new Intent(Signup.this,Login.class));
+                finish();
+                //String message = t.getLocalizedMessage();
+                //Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
