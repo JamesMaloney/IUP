@@ -37,7 +37,7 @@ public class Home extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getExtras()!= null){
             loginResponse = (LoginResponse)intent.getSerializableExtra("data");
-            Log.e("TAG","=========>>>> "+loginResponse.getToken());
+            Log.e("TAG","=========>>>> "+loginResponse.getKennitala());
         }
 
     }

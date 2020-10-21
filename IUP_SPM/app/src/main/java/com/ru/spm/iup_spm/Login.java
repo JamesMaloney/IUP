@@ -1,6 +1,8 @@
 package com.ru.spm.iup_spm;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -71,6 +73,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     //Log.e("NAME","=========>>>> "+loginResponse.getName());
                     Intent intent = new Intent(Login.this,Home.class);
                     intent.putExtra("data",loginResponse);
+
+                    //Log.e("DIOPPORCO",loginResponse.getToken());
+
+                    SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                    preferences.edit().putString("token", loginResponse.getToken()).commit();
+
+                    String token = preferences.getString("token","");
+                    Log.e("TOKEN_>_>_>",token);
+
                     startActivity(intent);
                     finish();
                 }else{
@@ -86,6 +97,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
+
+
+
     @Override
     public void onClick(View v) {
         }

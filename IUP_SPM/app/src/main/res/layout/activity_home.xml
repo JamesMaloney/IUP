@@ -27,6 +27,7 @@
             android:id="@+id/logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             app:srcCompat="@drawable/iup_little_logo" />
 
     </androidx.appcompat.widget.Toolbar>
