@@ -12,53 +12,62 @@
         android:layout_width="367dp"
         android:layout_height="100dp"
         tools:srcCompat="@drawable/party2"
-        android:scaleType="fitXY"
         android:adjustViewBounds="true"
         />
 
-    <ImageView
-        android:id="@+id/imgProfile"
-        android:layout_width="62dp"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:layout_height="50dp"
-        android:layout_below="@+id/imgEvent"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/txtNameProfile"
-        android:layout_width="120dp"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_width="168dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/imgProfile"
-        android:layout_marginTop="15dp"
         android:layout_below="@+id/imgEvent"
         android:layout_marginLeft="10dp"
-        android:text="Profile"
-        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-        />
-
+        android:layout_marginTop="26dp"
+        android:layout_toRightOf="@+id/cardviewimgProfile"
+        android:text="Profile" />
 
     <TextView
         android:id="@+id/txtNameEvent"
-        android:layout_width="120dp"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_width="136dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgEvent"
-        android:layout_marginLeft="246dp"
+        android:layout_marginStart="230dp"
+        android:layout_marginLeft="230dp"
         android:layout_marginTop="0dp"
-        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-        android:text="Fantastic Event"
         android:inputType="text"
         android:maxLines="1"
-        />
+        android:gravity="right"
+        android:text="Fantastic Event" />
 
     <TextView
         android:id="@+id/txtDistanceEvent"
-        android:layout_width="56dp"
+        android:layout_width="66dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNameEvent"
         android:layout_marginLeft="300dp"
         android:layout_marginTop="0dp"
+        android:gravity="right"
         android:inputType="text"
         android:text="1.6 km" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewimgProfile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="50dp"
+        android:layout_below="@+id/imgEvent"
+        >
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/avatars"
+            />
+    </androidx.cardview.widget.CardView>
+
+
 
 </RelativeLayout>

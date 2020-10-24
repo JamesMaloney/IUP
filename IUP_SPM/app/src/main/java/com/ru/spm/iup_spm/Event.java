@@ -3,6 +3,7 @@ package com.ru.spm.iup_spm;
 
 //Events for Arraylist in Home
 public class Event {
+
     private int imgEvent;
     private String nameEvent;
     private String distanceEvent;
