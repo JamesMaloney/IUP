@@ -10,10 +10,10 @@
     <ImageView
         android:id="@+id/imgEvent"
         android:layout_width="367dp"
-        android:layout_height="100dp"
-        tools:srcCompat="@drawable/party2"
+        android:layout_height="123dp"
         android:adjustViewBounds="true"
-        />
+        android:scaleType="centerCrop"
+        tools:srcCompat="@drawable/party2" />
 
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_below="@+id/imgEvent"
         android:layout_marginStart="230dp"
         android:layout_marginLeft="230dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="15dp"
         android:inputType="text"
         android:maxLines="1"
         android:gravity="right"
@@ -55,6 +55,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardviewimgProfile"
         android:layout_width="60dp"
+        android:layout_marginTop="5dp"
         android:layout_height="60dp"
         app:cardCornerRadius="50dp"
         android:layout_below="@+id/imgEvent"

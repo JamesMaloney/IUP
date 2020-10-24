@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,10 +22,13 @@ import retrofit2.Response;
 public class Login extends AppCompatActivity implements View.OnClickListener {
     Button button_back, button_login;
     EditText Kennitala, Password;
+    private ProgressBar spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        spinner = (ProgressBar)findViewById(R.id.LoadingLogin);
+
         button_back = (Button)findViewById(R.id.back);
         button_back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,10 +48,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     loginRequest.setKennitala(Kennitala.getText().toString());
                     loginRequest.setPassword(Password.getText().toString());
                     loginUser(loginRequest);
+                    spinner.setVisibility(View.VISIBLE);
+
                 }
             }
         });
-
         Kennitala = (EditText)findViewById(R.id.kennitala);
         Password = (EditText)findViewById(R.id.password);
 
@@ -81,7 +87,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                     String token = preferences.getString("token","");
                     Log.e("TOKEN_>_>_>",token);
-
+                    spinner.setVisibility(View.INVISIBLE);
                     startActivity(intent);
                     finish();
                 }else{

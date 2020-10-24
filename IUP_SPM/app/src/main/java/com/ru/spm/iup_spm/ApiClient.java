@@ -48,4 +48,26 @@ public class ApiClient {
         return userService;
     }
 
+    //EVENTS _------___--_-_--_-_-_-___-_--_-__-_--_---_--
+    /*TODO CHECK API*/
+    public static Retrofit getRetrofitEvent(){
+
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
+
+        Retrofit retrofitCreateEvent =  new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://iuppartyservice.azurewebsites.net/api/event/").client(okHttpClient).build();
+
+        return retrofitCreateEvent;
+    }
+    /*TODO*/
+
+
+    public static UserService getServiceEvents(){
+        UserService userService = getRetrofitEvent().create(UserService.class);
+        return userService;
+    }
 }

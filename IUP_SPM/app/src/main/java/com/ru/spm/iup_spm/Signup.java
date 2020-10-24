@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +19,14 @@ import retrofit2.Response;
 public class Signup extends AppCompatActivity implements View.OnClickListener {
     Button button_back, button_sign;
     EditText Name, Password, Kennitala, Surname, Birthday;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        spinner = (ProgressBar)findViewById(R.id.LoadingLogin);
 
         button_back = (Button)findViewById(R.id.back);
         button_back.setOnClickListener(new View.OnClickListener(){
@@ -36,6 +40,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         button_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                spinner.setVisibility(View.VISIBLE);
                 if(TextUtils.isEmpty(Kennitala.getText().toString()) || TextUtils.isEmpty(Name.getText().toString()) || TextUtils.isEmpty(Surname.getText().toString()) ||
                         TextUtils.isEmpty(Password.getText().toString()) || TextUtils.isEmpty(Birthday.getText().toString() )){
                     String message = "All inputs are required!";
@@ -48,7 +53,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     registerRequest.setPassword(Password .getText().toString());
                     registerRequest.setBirthday(Birthday.getText().toString());
                     registerUser(registerRequest);
-
                 }
             }
         });
@@ -69,12 +73,12 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 if(response.isSuccessful()){
-                    String message = "Successful.";
+                    String message = "Successful! User correctly created!";
                     Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
-
+                    spinner.setVisibility(View.INVISIBLE);
                     startActivity(new Intent(Signup.this,Login.class));
                     finish();
-                }else{
+                } else {
                     String message = "An error occurred please try later.";
                     Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
                 }

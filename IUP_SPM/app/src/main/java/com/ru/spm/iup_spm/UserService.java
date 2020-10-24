@@ -12,5 +12,6 @@ public interface UserService {
     @POST("registerUser/")
     Call<RegisterResponse> registerUser(@Body RegisterRequest registerRequest);
 
-
+    @POST("createEvent/")
+    Call<EventResponse> createEvent(@Body EventRequest eventRequest);
 }
