@@ -49,7 +49,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     loginRequest.setPassword(Password.getText().toString());
                     loginUser(loginRequest);
                     spinner.setVisibility(View.VISIBLE);
-
+                    button_login.setClickable(false);
+                    button_back.setClickable(false);
                 }
             }
         });
@@ -74,23 +75,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     loginResponse.setToken(response.body().getToken());
                     loginResponse.setName(response.body().getName());
                     loginResponse.setKennitala(response.body().getKennitala());
-                    //Log.e("KENNITALA","=========>>>> "+loginResponse.getKennitala());
-                    //Log.e("TOKEN","=========>>>> "+loginResponse.getToken());
-                    //Log.e("NAME","=========>>>> "+loginResponse.getName());
+
                     Intent intent = new Intent(Login.this,Home.class);
                     intent.putExtra("data",loginResponse);
 
-                    //Log.e("DIOPPORCO",loginResponse.getToken());
-
                     SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
-                    preferences.edit().putString("token", loginResponse.getToken()).commit();
+                    preferences.edit().putString("token", loginResponse.getToken()).apply();
+                    preferences.edit().putString("kennitala", loginResponse.getKennitala()).apply();
 
-                    String token = preferences.getString("token","");
-                    Log.e("TOKEN_>_>_>",token);
                     spinner.setVisibility(View.INVISIBLE);
                     startActivity(intent);
                     finish();
-                }else{
+                } else {
                     String message = "An error during login occurred please try later.";
                     Toast.makeText(Login.this, message,Toast.LENGTH_LONG).show();
                 }

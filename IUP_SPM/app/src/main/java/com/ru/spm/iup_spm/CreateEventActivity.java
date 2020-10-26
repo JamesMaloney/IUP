@@ -1,12 +1,23 @@
 package com.ru.spm.iup_spm;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
@@ -14,6 +25,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.app.Activity;
@@ -24,35 +37,79 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class CreateEventActivity extends AppCompatActivity {
 
-    public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 105;
-    ImageView selectedImage;
-    String currentPhotoPath;
-    EditText Name, MaxPeople, Description, DateStart, DateEnd, Position;
-    LoginResponse loginResponse;
+    private ImageView selectedImage, btnGetLocation, imgIcon;
+    private EditText Name, MaxPeople, Description, DateStart, DateEnd;
     private ProgressBar spinner;
+    private TextView showLocation;
+    private GpsTracker gpsTracker;
+    private Button btnBack, btnSettings, bntCreateEvent;
+    private String currentPhotoPath;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+        /*LOCATION*/
+        try {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
-        Button btnSettings = (Button) findViewById(R.id.btnSettings);
+        showLocation = findViewById(R.id.txtPosition);
+        btnGetLocation = findViewById(R.id.btnPosition);
+        spinner = (ProgressBar)findViewById(R.id.LoadingLogin);
+        Name = (EditText) findViewById(R.id.txtName);
+        MaxPeople = (EditText) findViewById(R.id.txtMaxPeople);
+        DateEnd = (EditText) findViewById(R.id.txtDateEnd);
+        DateStart = (EditText) findViewById(R.id.txtDateStart);
+        Description = (EditText) findViewById(R.id.txtDescription);
+        selectedImage = findViewById(R.id.displayImageView);
+        btnBack = (Button) findViewById(R.id.btnBack);
+        btnSettings = (Button) findViewById(R.id.btnSettings);
+        imgIcon = findViewById(R.id.logo);
+        bntCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
+
+        if(ContextCompat.checkSelfPermission(CreateEventActivity.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(CreateEventActivity.this,new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            },100);
+        }
+        btnGetLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLocation();
+            }
+        });
+
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +117,6 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
-        ImageView imgIcon = findViewById(R.id.logo);
         imgIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,17 +124,12 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
-        Button btnBack = (Button) findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 open_home();
             }
         });
-
-        selectedImage = findViewById(R.id.displayImageView);
-
-
 
         selectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,64 +139,58 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
-
-        spinner = (ProgressBar)findViewById(R.id.LoadingLogin);
-
-        Name = (EditText) findViewById(R.id.txtName);
-        MaxPeople = (EditText) findViewById(R.id.txtMaxPeople);
-        Position = (EditText) findViewById(R.id.txtPosition);
-        DateEnd = (EditText) findViewById(R.id.txtDateEnd);
-        DateStart = (EditText) findViewById(R.id.txtDateStart);
-        Description = (EditText) findViewById(R.id.txtDescription);
-
-
-        Button bntCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
         bntCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 spinner.setVisibility(View.VISIBLE);
                 if(TextUtils.isEmpty(Name.getText().toString()) || TextUtils.isEmpty(MaxPeople.getText().toString()) || TextUtils.isEmpty(Description.getText().toString()) ||
-                        TextUtils.isEmpty(Position.getText().toString()) || TextUtils.isEmpty(DateEnd.getText().toString()) || TextUtils.isEmpty(DateStart.getText().toString())){
+                        TextUtils.isEmpty(showLocation.getText().toString()) || TextUtils.isEmpty(DateEnd.getText().toString()) || TextUtils.isEmpty(DateStart.getText().toString())){
                     String message = "All inputs are required!";
                     Toast.makeText(CreateEventActivity.this, message,Toast.LENGTH_LONG).show();
                 }else{
                     EventRequest eventRequest = new EventRequest();
                     eventRequest.setName(Name.getText().toString());
-                    eventRequest.setPosition(Position.getText().toString());
                     eventRequest.setDateEnd(DateEnd.getText().toString());
                     eventRequest.setDateStart(DateStart .getText().toString());
                     eventRequest.setDescription(Description.getText().toString());
                     eventRequest.setMaxPeople(Integer.parseInt(MaxPeople.getText().toString()));
 
-                    /*TODO TEST IT IMAGE*/
+                    /*IMAGE CONVERTION*/
                     selectedImage.buildDrawingCache();
                     Bitmap bmap = selectedImage.getDrawingCache();
                     ByteArrayOutputStream stream=new ByteArrayOutputStream();
                     bmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
                     byte[] image=stream.toByteArray();
                     String img_str = Base64.encodeToString(image, 0);
-                    Log.e("QUAAA",""+img_str);
-
+                    /*SET IMAGE*/
                     eventRequest.setImage(img_str);
+                    /*GET SHARED PREFERENCES*/
+                    SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+
+                    String kennitala = preferences.getString("kennitala","");
+                    String longitude = preferences.getString("longitude","");
+                    String latitude = preferences.getString("latitude","");
+                    Log.e("LATITUDE::::",latitude);
+                    Log.e("LONGITUDE::::",longitude);
+
+
+                    eventRequest.setLatitude(Double.parseDouble(latitude));
+                    eventRequest.setLongitude(Double.parseDouble(longitude));
 
                     /*TODO test it*/
-                    eventRequest.setHost("08071997");
+                    eventRequest.setHost(kennitala);
                     eventRequest.setHostName("Smetz");
                     createEvent(eventRequest);
                 }
             }
         });
-
-        /*TODO maybe IMG assignment*/
     }
 
     private void createEvent(EventRequest eventRequest) {
         Call<EventResponse> creationResponse = ApiClient.getServiceEvents().createEvent(eventRequest);
         creationResponse.enqueue(new Callback<EventResponse>() {
-
-
             @Override
-            public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
+            public void onResponse(Call<EventResponse> call, retrofit2.Response<EventResponse> response) {
                 spinner.setVisibility(View.INVISIBLE);
                 if(response.isSuccessful()){
                     String message = "Successful. Event Created";
@@ -193,9 +238,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 mediaScanIntent.setData(contentUri);
                 this.sendBroadcast(mediaScanIntent);
             }
-
         }
-
         if (requestCode == GALLERY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri contentUri = data.getData();
@@ -204,10 +247,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 Log.d("tag", "onActivityResult: Gallery Image Uri:  " + imageFileName);
                 selectedImage.setImageURI(contentUri);
             }
-
         }
-
-
     }
 
     private String getFileExt(Uri contentUri) {
@@ -216,43 +256,18 @@ public class CreateEventActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(c.getType(contentUri));
     }
 
+    public void getLocation(){
+        gpsTracker = new GpsTracker(CreateEventActivity.this);
+        if(gpsTracker.canGetLocation()){
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
+            SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+            preferences.edit().putString("latitude", String.valueOf(latitude)).apply();
+            preferences.edit().putString("longitude", String.valueOf(longitude)).apply();
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "net.smallacademy.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
-            }
+            showLocation.setText("Position Found!");
+        }else{
+            gpsTracker.showSettingsAlert();
         }
     }
 }

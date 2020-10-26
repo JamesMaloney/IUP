@@ -19,11 +19,11 @@
     <TextView
         android:id="@+id/txtNameProfile"
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-        android:layout_width="168dp"
+        android:layout_width="133dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgEvent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/cardviewimgProfile"
         android:text="Profile" />
 
@@ -43,14 +43,67 @@
 
     <TextView
         android:id="@+id/txtDistanceEvent"
-        android:layout_width="66dp"
+        android:layout_width="67dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNameEvent"
-        android:layout_marginLeft="300dp"
+        android:layout_marginLeft="280dp"
         android:layout_marginTop="0dp"
         android:gravity="right"
         android:inputType="text"
-        android:text="1.6 km" />
+        android:text="1.6" />
+
+    <TextView
+        android:id="@+id/txtDistanceEventStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNameEvent"
+        android:layout_marginLeft="348dp"
+        android:layout_marginTop="0dp"
+        android:gravity="right"
+        android:inputType="text"
+        android:text="km" />
+
+    <TextView
+        android:id="@+id/txtuseless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNameEvent"
+        android:layout_marginLeft="68dp"
+        android:layout_marginTop="0dp"
+        android:gravity="left"
+        android:inputType="text"
+        android:text="Max People:" />
+    <TextView
+        android:id="@+id/txtMPeople"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNameEvent"
+        android:layout_marginLeft="175dp"
+        android:layout_marginTop="0dp"
+        android:gravity="left"
+        android:inputType="text"
+        android:text="10" />
+
+    <TextView
+        android:id="@+id/txtParticipants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNameEvent"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="0dp"
+        android:gravity="left"
+        android:inputType="text"
+        android:text="10" />
+    <TextView
+        android:id="@+id/txtSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNameEvent"
+        android:layout_marginLeft="168dp"
+        android:layout_marginTop="0dp"
+        android:gravity="left"
+        android:inputType="text"
+        android:text="/" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardviewimgProfile"

@@ -12,11 +12,6 @@ public class EventRequest {
     private String Image;
     private String HostName;
 
-    /*TODO from position to langitude and latitude*/
-    public void setPosition(String s){
-        setLatitude(0.132343);
-        setLongitude(1.232323);
-    }
 
     public String getName() {
         return Name;

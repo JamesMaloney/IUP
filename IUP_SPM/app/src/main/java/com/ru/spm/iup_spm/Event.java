@@ -4,58 +4,91 @@ package com.ru.spm.iup_spm;
 //Events for Arraylist in Home
 public class Event {
 
-    private int imgEvent;
-    private String nameEvent;
-    private String distanceEvent;
-    private String nameHostEvent;
-    private int imgHostEvent;
+    private String image;
+    private String name;
+    private double distance;
+    private String hostName;
+    private int maxPeople;
+    private int participants;
+    private String imgHostEvent;
+    private boolean hidden;
 
-    public Event(int imgEvent, String nameEvent, String distanceEvent, String nameHostEvent, int imgHostEvent) {
-        this.imgEvent = imgEvent;
-        this.nameEvent = nameEvent;
-        this.distanceEvent = distanceEvent;
-        this.nameHostEvent = nameHostEvent;
+    public Event(String image, String name, double distance, String hostName, int maxPeople, int participants, String imgHostEvent, boolean hidden) {
+        this.image = image;
+        this.name = name;
+        this.distance = distance;
+        this.hostName = hostName;
+        this.maxPeople = maxPeople;
+        this.participants = participants;
         this.imgHostEvent = imgHostEvent;
+        this.hidden = hidden;
     }
 
-
-    public int getImgEvent() {
-        return imgEvent;
+    public int getMaxPeople() {
+        return maxPeople;
     }
 
-    public void setImgEvent(int imgEvent) {
-        this.imgEvent = imgEvent;
+    public void setMaxPeople(int maxPeople) {
+        this.maxPeople = maxPeople;
     }
 
-    public String getNameEvent() {
-        return nameEvent;
+    public boolean isHidden() {
+        return hidden;
     }
 
-    public void setNameEvent(String nameEvent) {
-        this.nameEvent = nameEvent;
+    public String getImage() {
+        return image;
     }
 
-    public String getDistanceEvent() {
-        return distanceEvent;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public void setDistanceEvent(String distanceEvent) {
-        this.distanceEvent = distanceEvent;
+    public String getName() {
+        return name;
     }
 
-    public String getNameHostEvent() {
-        return nameHostEvent;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setNameHostEvent(String nameHostEvent) {
-        this.nameHostEvent = nameHostEvent;
+    public double getDistance() {
+        return distance;
     }
 
-    public int getImgHostEvent() {
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public int getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(int participants) {
+        this.participants = participants;
+    }
+
+    public String getImgHostEvent() {
         return imgHostEvent;
     }
 
-    public void setImgHostEvent(int imgHostEvent) {
+    public void setImgHostEvent(String imgHostEvent) {
         this.imgHostEvent = imgHostEvent;
+    }
+
+    public boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 }

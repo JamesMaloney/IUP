@@ -9,6 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
+    public static Retrofit retrofit;
+
     public static Retrofit getRetrofitRegister(){
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -69,5 +71,23 @@ public class ApiClient {
     public static UserService getServiceEvents(){
         UserService userService = getRetrofitEvent().create(UserService.class);
         return userService;
+    }
+
+    //Get EVENTS _------___--_-_--_-_-_-___-_--_-__-_--_---_--
+
+
+    public static Retrofit getRetrofitAllEvent(){
+
+        //If condition to ensure we don't create multiple retrofit instances in a single application
+        if (retrofit==null) {
+
+            //Defining the Retrofit using Builder
+            retrofit=new Retrofit.Builder()
+                    .baseUrl("https://iuppartyservice.azurewebsites.net/api/event/")   //This is the only mandatory call on Builder object.
+                    .addConverterFactory(GsonConverterFactory.create()) // Convertor library used to convert response into POJO
+                    .build();
+        }
+
+        return retrofit;
     }
 }
