@@ -83,21 +83,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     preferences.edit().putString("token", loginResponse.getToken()).apply();
                     preferences.edit().putString("kennitala", loginResponse.getKennitala()).apply();
 
-                    spinner.setVisibility(View.INVISIBLE);
                     startActivity(intent);
                     finish();
                 } else {
-                    String message = "An error during login occurred please try later.";
+                    String message = "Kennitala or Password wrong.";
                     Toast.makeText(Login.this, message,Toast.LENGTH_LONG).show();
                 }
+                spinner.setVisibility(View.INVISIBLE);
+                button_login.setClickable(true);
+                button_back.setClickable(true);
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 String message = "Failed";
                 Toast.makeText(Login.this, message,Toast.LENGTH_LONG).show();
+                spinner.setVisibility(View.INVISIBLE);
+                button_login.setClickable(true);
+                button_back.setClickable(true);
             }
         });
+
     }
 
 

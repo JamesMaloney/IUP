@@ -86,20 +86,23 @@
 
     <TextView
         android:id="@+id/txtParticipants"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNameEvent"
-        android:layout_marginLeft="150dp"
+        android:layout_toRightOf="@+id/txtMaxPeople"
+        android:layout_marginLeft="148dp"
+        android:textAlignment="viewEnd"
         android:layout_marginTop="0dp"
         android:gravity="left"
         android:inputType="text"
-        android:text="10" />
+        android:text="2"
+        tools:ignore="RtlCompat" />
     <TextView
         android:id="@+id/txtSlash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNameEvent"
-        android:layout_marginLeft="168dp"
+        android:layout_marginLeft="169dp"
         android:layout_marginTop="0dp"
         android:gravity="left"
         android:inputType="text"

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imgmyEvent"
+        android:layout_width="367dp"
+        android:layout_height="123dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@drawable/party2" />
+
+    <TextView
+        android:id="@+id/txtNameEvent"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgmyEvent"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:maxLines="1"
+        android:text="@string/fantastic_event"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/txtuseless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/txtNameEvent"
+        android:layout_below="@+id/imgmyEvent"
+        android:layout_marginTop="7dp"
+        android:text="@string/partecipants" />
+
+    <TextView
+        android:id="@+id/txtParticipants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/txtuseless"
+        android:layout_below="@+id/imgmyEvent"
+        android:layout_marginTop="7dp"
+        android:text="@string/_2" />
+
+    <TextView
+        android:id="@+id/txtSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/txtParticipants"
+        android:layout_below="@+id/imgmyEvent"
+        android:layout_marginTop="7dp"
+        android:gravity="left"
+        android:text="@string/slash"
+        android:layout_toEndOf="@+id/txtParticipants" />
+
+    <TextView
+        android:id="@+id/txtMaxPartecipants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/txtSlash"
+        android:layout_below="@+id/imgmyEvent"
+        android:layout_marginTop="7dp"
+        android:text="@string/_10"
+        android:layout_toEndOf="@+id/txtSlash" />
+
+</RelativeLayout>

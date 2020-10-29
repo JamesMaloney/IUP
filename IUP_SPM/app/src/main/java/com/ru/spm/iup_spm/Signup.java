@@ -25,10 +25,15 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
+        Name = (EditText) findViewById(R.id.textname);
+        Surname = (EditText) findViewById(R.id.textSurname);
+        Password = (EditText) findViewById(R.id.textPassword);
+        Birthday = (EditText) findViewById(R.id.textBirthday);
+        Kennitala = (EditText) findViewById(R.id.textkennitala);
         spinner = (ProgressBar)findViewById(R.id.LoadingLogin);
-
+        button_sign = (Button)findViewById(R.id.button_sign_up);
         button_back = (Button)findViewById(R.id.back);
+
         button_back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -36,16 +41,20 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             }}
         );
 
-        button_sign = (Button)findViewById(R.id.button_sign_up);
         button_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spinner.setVisibility(View.VISIBLE);
                 if(TextUtils.isEmpty(Kennitala.getText().toString()) || TextUtils.isEmpty(Name.getText().toString()) || TextUtils.isEmpty(Surname.getText().toString()) ||
                         TextUtils.isEmpty(Password.getText().toString()) || TextUtils.isEmpty(Birthday.getText().toString() )){
                     String message = "All inputs are required!";
                     Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
-                }else{
+                }else if (Kennitala.getText().toString().length()!=10){
+                    String message = "Kennitala not valid!";
+                    Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
+                }else {
+                    spinner.setVisibility(View.VISIBLE);
+                    button_sign.setClickable(false);
+                    button_back.setClickable(false);
                     RegisterRequest registerRequest = new RegisterRequest();
                     registerRequest.setKennitala(Kennitala.getText().toString());
                     registerRequest.setName(Name.getText().toString());
@@ -56,11 +65,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
-        Name = (EditText) findViewById(R.id.textname);
-        Surname = (EditText) findViewById(R.id.textSurname);
-        Password = (EditText) findViewById(R.id.textPassword);
-        Birthday = (EditText) findViewById(R.id.textBirthday);
-        Kennitala = (EditText) findViewById(R.id.textkennitala);
     }
     private void open_main() {
         Intent intent = new Intent(this,MainActivity.class);
@@ -75,25 +79,31 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 if(response.isSuccessful()){
                     String message = "Successful! User correctly created!";
                     Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
-                    spinner.setVisibility(View.INVISIBLE);
                     startActivity(new Intent(Signup.this,Login.class));
                     finish();
                 } else {
                     String message = "An error occurred please try later.";
                     Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
                 }
+                spinner.setVisibility(View.INVISIBLE);
+                button_sign.setClickable(true);
+                button_back.setClickable(true);
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
                 String message = "Successful.";
                 Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
+                spinner.setVisibility(View.INVISIBLE);
+                button_sign.setClickable(true);
+                button_back.setClickable(true);
                 startActivity(new Intent(Signup.this,Login.class));
                 finish();
                 //String message = t.getLocalizedMessage();
                 //Toast.makeText(Signup.this, message,Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
     @Override

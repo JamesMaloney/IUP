@@ -1,5 +1,6 @@
 package com.ru.spm.iup_spm;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -25,6 +26,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         this.eContext = context;
     }
 
+    @SuppressLint("ViewHolder")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

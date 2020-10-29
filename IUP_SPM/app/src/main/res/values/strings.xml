@@ -17,7 +17,6 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="kennitala">Kennitala</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="event_description">Event Description</string>
     <string name="position">Position</string>
@@ -26,4 +25,15 @@
     <string name="maximum_people">Maximum people</string>
     <string name="event_name">Event Name</string>
     <string name="click_below_to_add_a_photo">Click below to add a photo!</string>
+    <string name="name">name</string>
+    <string name="biography">Biography</string>
+    <string name="change_image">Change Image</string>
+    <string name="name_profile">Name</string>
+    <string name="create_one"><u>Create one!</u></string>
+    <string name="_10">10</string>
+    <string name="slash">/</string>
+    <string name="_2">2</string>
+    <string name="partecipants">Partecipants:</string>
+    <string name="fantastic_event">Fantastic Event</string>
+    <string name="you_don_t_seem_to_have_organized_any_events_what_are_you_waiting_for">You don\'t seem to have organized any events. What are you waiting for?</string>
 </resources>
