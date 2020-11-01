@@ -55,7 +55,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         progressBar = (ProgressBar) view.findViewById(R.id.LoadingLogin);
         lstEvents = (ListView) view.findViewById(R.id.listEvents);
-
+/*
+        TODO RE ADD
+*/
+        //reload_events();
         //TEST of LIST
 /*
         arrayEvents.add(new Event(String.valueOf(R.drawable.party1),"Great Party",1,"Smetz",1,String.valueOf(R.drawable.profile),false));
@@ -91,7 +94,6 @@ public class HomeFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://iuppartyservice.azurewebsites.net/api/event/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
-        Log.e("RETRO", String.valueOf(retrofit));
         UserService userService = retrofit.create(UserService.class);
         Call<List<Event>> listCall = userService.getEvents(lati,longi);
         listCall.enqueue(new Callback<List<Event>>() {

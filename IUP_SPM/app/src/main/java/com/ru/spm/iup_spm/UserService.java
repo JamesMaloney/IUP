@@ -26,6 +26,7 @@ public interface UserService {
     @GET("getNearestEvents")
     Call<List<Event>> getEvents(@Query("latitude") String latitude, @Query("longitude") String longitude );
 
-    @GET("getAllEvents/")
-    Call<List<EventTry>> getAll();
+    @GET("myEvents/{kennitala}")
+    Call<List<Event>> getMyEvents(@Path("kennitala") String kennitala);
+
 }

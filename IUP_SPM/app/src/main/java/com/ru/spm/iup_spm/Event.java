@@ -24,6 +24,17 @@ public class Event {
         this.hidden = hidden;
     }
 
+    public Event(String image, String name, int maxPeople, int participants) {
+        this.image = image;
+        this.name = name;
+        this.distance = 0;
+        this.hostName = " ";
+        this.maxPeople = maxPeople;
+        this.participants = participants;
+        this.imgHostEvent = " ";
+        this.hidden = false;
+    }
+
     public int getMaxPeople() {
         return maxPeople;
     }

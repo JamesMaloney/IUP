@@ -25,7 +25,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/cardviewimgProfile"
-        android:text="Profile" />
+        android:text="Profile"
+        android:layout_marginStart="8dp" />
 
     <TextView
         android:id="@+id/txtNameEvent"
@@ -39,7 +40,8 @@
         android:inputType="text"
         android:maxLines="1"
         android:gravity="right"
-        android:text="Fantastic Event" />
+        android:text="@string/fantastic_event"
+        tools:ignore="RtlHardcoded,TextViewEdits" />
 
     <TextView
         android:id="@+id/txtDistanceEvent"
@@ -50,7 +52,9 @@
         android:layout_marginTop="0dp"
         android:gravity="right"
         android:inputType="text"
-        android:text="1.6" />
+        android:text="@string/_1_6"
+        android:layout_marginStart="280dp"
+        tools:ignore="RtlHardcoded,TextViewEdits" />
 
     <TextView
         android:id="@+id/txtDistanceEventStatic"
@@ -61,7 +65,8 @@
         android:layout_marginTop="0dp"
         android:gravity="right"
         android:inputType="text"
-        android:text="km" />
+        android:text="@string/km"
+        tools:ignore="RtlHardcoded,TextViewEdits" />
 
     <TextView
         android:id="@+id/txtuseless"
@@ -72,7 +77,8 @@
         android:layout_marginTop="0dp"
         android:gravity="left"
         android:inputType="text"
-        android:text="Max People:" />
+        android:text="@string/max_people"
+        tools:ignore="RtlHardcoded,TextViewEdits" />
     <TextView
         android:id="@+id/txtMPeople"
         android:layout_width="wrap_content"
@@ -82,7 +88,8 @@
         android:layout_marginTop="0dp"
         android:gravity="left"
         android:inputType="text"
-        android:text="10" />
+        android:text="@string/_10"
+        tools:ignore="RtlHardcoded,TextViewEdits" />
 
     <TextView
         android:id="@+id/txtParticipants"
@@ -95,8 +102,10 @@
         android:layout_marginTop="0dp"
         android:gravity="left"
         android:inputType="text"
-        android:text="2"
-        tools:ignore="RtlCompat" />
+        android:text="@string/_2"
+        tools:ignore="RtlCompat,RtlHardcoded,TextViewEdits,UnknownIdInLayout"
+        android:layout_marginStart="148dp"
+        android:layout_toEndOf="@+id/txtMaxPeople" />
     <TextView
         android:id="@+id/txtSlash"
         android:layout_width="wrap_content"
@@ -106,7 +115,9 @@
         android:layout_marginTop="0dp"
         android:gravity="left"
         android:inputType="text"
-        android:text="/" />
+        android:text="@string/slash"
+        android:layout_marginStart="169dp"
+        tools:ignore="RtlHardcoded,TextViewEdits" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardviewimgProfile"
