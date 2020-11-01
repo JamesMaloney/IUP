@@ -1,5 +1,7 @@
 # I'm Usually Partying
 
+Authentication Service&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Party Service&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Users Service
+
 [![Authentication Build Status](https://dev.azure.com/william20/IUP/_apis/build/status/AuthService?branchName=main)](https://dev.azure.com/william20/IUP/_build/latest?definitionId=3&branchName=main)
 [![Party Build Status](https://dev.azure.com/william20/IUP/_apis/build/status/PartyService?branchName=main)](https://dev.azure.com/william20/IUP/_build/latest?definitionId=5&branchName=main)
 [![Users Build Status](https://dev.azure.com/william20/IUP/_apis/build/status/UsersService?branchName=main)](https://dev.azure.com/william20/IUP/_build/latest?definitionId=4&branchName=main)
