@@ -39,4 +39,12 @@
     <string name="_10">10</string>
     <string name="_2">2</string>
     <string name="slash">/</string>
+    <string name="giacomo_menchi"><b>Giacomo Menchi</b></string>
+    <string name="Description_G">He has a bachelor’s degree in Computer Science, obtained cum Laude at University of Camerino in July 2019. He is specialized in embedded systems, desktop and backend development, but tries to study everything that comes to his attention and thus has seen a little bit of everything and can manage in most situations. He will coordinate the development by attempting to solve incompatibilities between frontend and backend and aiding both in creating cohesion.</string>
+    <string name="matteo_belenchia"><b>Matteo Belenchia</b></string>
+    <string name="Description_MB">He is an exchange student from the University of Camerino specializing in Intelligent and Adaptive Systems. He has experience in distributed and parallel systems modelling, using frameworks such as Uppaal, jSpin, Concurrency Workbench and Repast Simphony. He will be mainly concerned with system design and communication protocols between components.</string>
+    <string name="matteo_guerrini"><b>Matteo Guerrini</b></string>
+    <string name="Description_MG">He is a student of the University of Camerino specialized in Software and System for Industries, he finished the bachelor in 2019 of Computer Science. Usually, in the previous project he developed the backend with C# and Java, but this time he wants to start to learn the front end, so it will be the developer of frontend with Android Studio.</string>
+    <string name="Description_W">William Paciaroni has a bachelor’s degree in Computer Science at University of Camerino. He is attending a Master of Computer Science with specialization in Systems and Software for Industries at University of Camerino. He has some previous experiences in developing front end using Angular and some mobile experiences where he used Ionic Native to build Hybrid App also thanks to the use of Cordova and Capacitor. In this project he chose to work on the back end, which will be developed using C# and ASP.Net Core.</string>
+    <string name="william_paciaroni"><b>William Paciaroni</b></string>
 </resources>

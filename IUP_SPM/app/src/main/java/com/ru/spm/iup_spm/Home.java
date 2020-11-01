@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Home extends AppCompatActivity {
     LoginResponse loginResponse;
     private BottomNavigationView buttonNavigationView;
-    private Button btnSettings;
+    private Button btnInfo;
     private List<Event> eventTries;
 
     @Override
@@ -38,12 +38,12 @@ public class Home extends AppCompatActivity {
 
         getLocation();
 
-        //Button Settings
-        btnSettings = (Button) findViewById(R.id.btnSettings);
-        btnSettings.setOnClickListener(new View.OnClickListener() {
+        //Button info
+        btnInfo = (Button) findViewById(R.id.btnInfo);
+        btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                open_settings();
+                open_info();
             }
         });
 
@@ -60,7 +60,7 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    private void open_settings() {
+    private void open_info() {
         startActivity(new Intent(this,SettingsActivity.class));
     }
 

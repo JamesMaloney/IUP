@@ -10,18 +10,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class SettingsActivity extends AppCompatActivity {
-    LoginResponse loginResponse;
-    private Button btnBack;
-    private Button btnSave;
-    private ImageView imgIcon;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        btnBack = (Button) findViewById(R.id.btnBack);
+        Button btnBack = (Button) findViewById(R.id.btnBackInfo);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,15 +24,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        btnSave = (Button) findViewById(R.id.btnSave);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
-
-        imgIcon = findViewById(R.id.logo);
+        ImageView imgIcon = findViewById(R.id.logoInfo);
         imgIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

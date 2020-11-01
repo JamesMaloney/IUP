@@ -16,12 +16,12 @@
         android:theme="?attr/actionBarTheme">
 
         <Button
-            android:id="@+id/btnSettings"
+            android:id="@+id/btnInfo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
             android:layout_gravity="right"
-            android:background="@drawable/ic_baseline_settings_24" />
+            android:background="@drawable/ic_info" />
 
         <ImageView
             android:id="@+id/logo"
