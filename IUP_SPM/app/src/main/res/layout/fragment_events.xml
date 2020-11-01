@@ -9,19 +9,19 @@
     android:layout_marginTop="50dp"
     android:layout_marginBottom="55dp">
 
-
     <ImageView
-        android:id="@+id/imgmyLogo"
+        android:id="@+id/ImgMyLogo"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:visibility="visible"
         android:layout_centerInParent="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.314"
-        tools:src="@drawable/iup_little_logo" />
+        app:layout_constraintVertical_bias="0.244"
+        app:srcCompat="@drawable/iup_little_logo" />
 
     <TextView
         android:id="@+id/NoEvents"
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgmyLogo"
+        app:layout_constraintTop_toBottomOf="@+id/ImgMyLogo"
         app:layout_constraintVertical_bias="0.092" />
 
     <ProgressBar
@@ -50,6 +50,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+
+
+    <ListView
+        android:id="@+id/listmyEvents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+    </ListView>
+
     <TextView
         android:id="@+id/txtCreate"
         android:layout_width="wrap_content"
@@ -64,15 +76,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NoEvents"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ListView
-        android:id="@+id/listmyEvents"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

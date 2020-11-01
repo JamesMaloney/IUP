@@ -62,12 +62,10 @@ public class CreateEventActivity extends AppCompatActivity {
 
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 105;
-    private ImageView selectedImage, btnGetLocation, imgIcon;
+    private ImageView selectedImage;
     private EditText Name, MaxPeople, Description, DateStart, DateEnd;
     private ProgressBar spinner;
     private TextView showLocation;
-    private GpsTracker gpsTracker;
-    private Button btnBack, btnSettings, bntCreateEvent;
     private String currentPhotoPath;
 
 
@@ -85,7 +83,7 @@ public class CreateEventActivity extends AppCompatActivity {
         }
 
         showLocation = findViewById(R.id.txtPosition);
-        btnGetLocation = findViewById(R.id.btnPosition);
+        ImageView btnGetLocation = findViewById(R.id.btnPosition);
         spinner = (ProgressBar)findViewById(R.id.LoadingLogin);
         Name = (EditText) findViewById(R.id.txtName);
         MaxPeople = (EditText) findViewById(R.id.txtMaxPeople);
@@ -93,10 +91,10 @@ public class CreateEventActivity extends AppCompatActivity {
         DateStart = (EditText) findViewById(R.id.txtDateStart);
         Description = (EditText) findViewById(R.id.txtDescription);
         selectedImage = findViewById(R.id.displayImageView);
-        btnBack = (Button) findViewById(R.id.btnBack);
-        btnSettings = (Button) findViewById(R.id.btnSettings);
-        imgIcon = findViewById(R.id.logo);
-        bntCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
+        Button btnBack = (Button) findViewById(R.id.btnBack);
+        Button btnSettings = (Button) findViewById(R.id.btnSettings);
+        ImageView imgIcon = findViewById(R.id.logo);
+        Button bntCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
 
         if(ContextCompat.checkSelfPermission(CreateEventActivity.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(CreateEventActivity.this,new String[]{
@@ -166,20 +164,12 @@ public class CreateEventActivity extends AppCompatActivity {
                     eventRequest.setImage(img_str);
                     /*GET SHARED PREFERENCES*/
                     SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                    String hostname = preferences.getString("hostname","");
+                    eventRequest.setHostName(hostname);
+                    eventRequest.setLatitude(Double.parseDouble(preferences.getString("latitude","")));
+                    eventRequest.setLongitude(Double.parseDouble(preferences.getString("longitude","")));
+                    eventRequest.setHost(preferences.getString("kennitala",""));
 
-                    String kennitala = preferences.getString("kennitala","");
-                    String longitude = preferences.getString("longitude","");
-                    String latitude = preferences.getString("latitude","");
-                    Log.e("LATITUDE::::",latitude);
-                    Log.e("LONGITUDE::::",longitude);
-
-
-                    eventRequest.setLatitude(Double.parseDouble(latitude));
-                    eventRequest.setLongitude(Double.parseDouble(longitude));
-
-                    /*TODO test it*/
-                    eventRequest.setHost(kennitala);
-                    eventRequest.setHostName("Smetz");
                     createEvent(eventRequest);
                 }
             }
@@ -256,8 +246,9 @@ public class CreateEventActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(c.getType(contentUri));
     }
 
+    @SuppressLint("SetTextI18n")
     public void getLocation(){
-        gpsTracker = new GpsTracker(CreateEventActivity.this);
+        GpsTracker gpsTracker = new GpsTracker(CreateEventActivity.this);
         if(gpsTracker.canGetLocation()){
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
@@ -265,7 +256,7 @@ public class CreateEventActivity extends AppCompatActivity {
             preferences.edit().putString("latitude", String.valueOf(latitude)).apply();
             preferences.edit().putString("longitude", String.valueOf(longitude)).apply();
 
-            showLocation.setText("Position Found!");
+            showLocation.setText("Position Acquired!");
         }else{
             gpsTracker.showSettingsAlert();
         }

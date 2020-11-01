@@ -30,9 +30,10 @@
         android:id="@+id/txtuseless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/txtMyEvent"
         android:layout_below="@+id/imgmyEvent"
+        android:layout_marginLeft="-55dp"
         android:layout_marginTop="7dp"
+        android:layout_toRightOf="@+id/txtMyEvent"
         android:text="@string/partecipants" />
 
     <TextView

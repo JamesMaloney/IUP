@@ -59,13 +59,7 @@ public class HomeFragment extends Fragment {
         TODO RE ADD
 */
         //reload_events();
-        //TEST of LIST
-/*
-        arrayEvents.add(new Event(String.valueOf(R.drawable.party1),"Great Party",1,"Smetz",1,String.valueOf(R.drawable.profile),false));
-        arrayEvents.add(new Event(String.valueOf(R.drawable.party2),"Fantastic Party",2,"Willy",4,String.valueOf(R.drawable.profile),false));
-        arrayEvents.add(new Event(String.valueOf(R.drawable.party1),"G Party",9,"G",6,String.valueOf(R.drawable.profile),false));
-        arrayEvents.add(new Event(String.valueOf(R.drawable.party2),"Cool Party",12,"Jacky",10,String.valueOf(R.drawable.profile),false));
-*/
+
         btnReload = (Button) view.findViewById(R.id.reload_event);
         btnReload.setOnClickListener(new View.OnClickListener() {
             @Override

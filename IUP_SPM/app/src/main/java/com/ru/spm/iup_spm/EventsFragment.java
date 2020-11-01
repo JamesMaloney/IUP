@@ -53,7 +53,7 @@ public class EventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
-        imgMyLogo =(ImageView) view.findViewById(R.id.imgmyLogo);
+        imgMyLogo =(ImageView) view.findViewById(R.id.ImgMyLogo);
         txtNoEvents = (TextView) view.findViewById(R.id.NoEvents);
         progressBar = (ProgressBar) view.findViewById(R.id.myLoadingLogin);
         txtCreateEvent = (TextView) view.findViewById(R.id.txtCreate);
@@ -70,7 +70,6 @@ public class EventsFragment extends Fragment {
         return view;
     }
 
-
     private void open_createEvent() {
         Intent intent = new Intent();
         intent.setClass(getActivity(), CreateEventActivity.class);
@@ -83,6 +82,9 @@ public class EventsFragment extends Fragment {
         String kennitala = preferences.getString("kennitala","");
         Log.e("kennitala",""+kennitala);
         progressBar.setVisibility(View.VISIBLE);
+        imgMyLogo.setVisibility(View.INVISIBLE);
+        txtCreateEvent.setVisibility(View.INVISIBLE);
+        txtNoEvents.setVisibility(View.INVISIBLE);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://iuppartyservice.azurewebsites.net/api/event/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
         UserService userService = retrofit.create(UserService.class);
@@ -94,6 +96,7 @@ public class EventsFragment extends Fragment {
                     return;
                 }
                 myEvents = response.body();
+
                 for (Event e : myEvents){
                     arrayMyEvents.add(new Event(
                             e.getImage(),
@@ -102,10 +105,14 @@ public class EventsFragment extends Fragment {
                             e.getParticipants()
                     ));
                 }
+                if(arrayMyEvents.isEmpty()){
+                    imgMyLogo.setVisibility(View.VISIBLE);
+                    txtCreateEvent.setVisibility(View.VISIBLE);
+                    txtNoEvents.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    return;
+                }
                 MyEventAdapter myEventAdapter = new MyEventAdapter(getContext(),R.layout.list_myevent,arrayMyEvents);
-                imgMyLogo.setVisibility(View.INVISIBLE);
-                txtCreateEvent.setVisibility(View.INVISIBLE);
-                txtNoEvents.setVisibility(View.INVISIBLE);
                 mylstEvents.setAdapter(myEventAdapter);
                 progressBar.setVisibility(View.INVISIBLE);
             }
@@ -113,6 +120,10 @@ public class EventsFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
                 Log.e("ERROR","error");
+                progressBar.setVisibility(View.INVISIBLE);
+                imgMyLogo.setVisibility(View.VISIBLE);
+                txtCreateEvent.setVisibility(View.VISIBLE);
+                txtNoEvents.setVisibility(View.VISIBLE);
             }
         });
     }

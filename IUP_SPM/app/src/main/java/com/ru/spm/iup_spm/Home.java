@@ -1,5 +1,6 @@
 package com.ru.spm.iup_spm;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,15 +32,18 @@ public class Home extends AppCompatActivity {
     LoginResponse loginResponse;
     private BottomNavigationView buttonNavigationView;
     private Button btnInfo;
-    private List<Event> eventTries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
 
-        getLocation();
-
+        if (preferences.getString("hostname","").isEmpty()){
+            getHostName();
+        } else if(preferences.getString("latitude","").isEmpty()){
+            getLocation();
+        }
         //Button info
         btnInfo = (Button) findViewById(R.id.btnInfo);
         btnInfo.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +62,6 @@ public class Home extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getExtras()!= null){
             loginResponse = (LoginResponse)intent.getSerializableExtra("data");
-            Log.e("TAG","=========>>>> "+loginResponse.getKennitala());
         }
     }
 
@@ -100,7 +105,34 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    public void getEvents(){
+    public void getHostName(){
+        SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        String kennitala = preferences.getString("kennitala","");
 
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://iupusesservice.azurewebsites.net/api/appIdentity/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseBody> result = service.getHostName(kennitala);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(!response.isSuccessful()){
+                    return;
+                }
+                try {
+                    String hostname = response.body().string();
+                    preferences.edit().putString("hostname", hostname).apply();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                String message = "Home GET Hostname Error.";
+                Toast.makeText(Home.this, message,Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
