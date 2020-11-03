@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -65,5 +66,15 @@
         android:layout_marginTop="7dp"
         android:text="@string/_10"
         android:layout_toEndOf="@+id/txtSlash" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_delete"
+        android:layout_toRightOf="@+id/txtMyMaxPartecipants"
+        android:layout_below="@+id/imgmyEvent"
+        android:layout_marginLeft="20dp"
+        />
 
 </RelativeLayout>

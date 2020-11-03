@@ -1,9 +1,9 @@
 package com.ru.spm.iup_spm;
 
+//Events for Arraylist
+public class Event  {
 
-//Events for Arraylist in Home
-public class Event {
-
+    private String eventID;
     private String image;
     private String name;
     private double distance;
@@ -12,8 +12,27 @@ public class Event {
     private int participants;
     private String imgHostEvent;
     private boolean hidden;
+    private String dateStart;
+    private String dateEnd;
+    private String description;
 
-    public Event(String image, String name, double distance, String hostName, int maxPeople, int participants, String imgHostEvent, boolean hidden) {
+    public Event(String eventID, String image, String name, double distance, String hostName, int maxPeople, int participants, String imgHostEvent, String dateStart, String dateEnd, String description) {
+        this.eventID = eventID;
+        this.image = image;
+        this.name = name;
+        this.distance = distance;
+        this.hostName = hostName;
+        this.maxPeople = maxPeople;
+        this.participants = participants;
+        this.imgHostEvent = imgHostEvent;
+        this.hidden = false;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.description = description;
+    }
+
+    public Event(String eventID, String image, String name, double distance, String hostName, int maxPeople, int participants, String imgHostEvent, boolean hidden) {
+        this.eventID = eventID;
         this.image = image;
         this.name = name;
         this.distance = distance;
@@ -22,9 +41,13 @@ public class Event {
         this.participants = participants;
         this.imgHostEvent = imgHostEvent;
         this.hidden = hidden;
+        this.dateEnd=" ";
+        this.dateStart=" ";
+        this.description=" ";
     }
 
-    public Event(String image, String name, int maxPeople, int participants) {
+    public Event(String eventID, String image, String name, int maxPeople, int participants) {
+        this.eventID = eventID;
         this.image = image;
         this.name = name;
         this.distance = 0;
@@ -33,6 +56,42 @@ public class Event {
         this.participants = participants;
         this.imgHostEvent = " ";
         this.hidden = false;
+        this.dateEnd=" ";
+        this.dateStart=" ";
+        this.description=" ";
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public String getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
     }
 
     public int getMaxPeople() {
@@ -102,4 +161,23 @@ public class Event {
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventID='" + eventID + '\'' +
+                ", image='" + image + '\'' +
+                ", name='" + name + '\'' +
+                ", distance=" + distance +
+                ", hostName='" + hostName + '\'' +
+                ", maxPeople=" + maxPeople +
+                ", participants=" + participants +
+                ", imgHostEvent='" + imgHostEvent + '\'' +
+                ", hidden=" + hidden +
+                ", dateStart='" + dateStart + '\'' +
+                ", dateEnd='" + dateEnd + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
 }

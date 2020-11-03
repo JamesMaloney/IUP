@@ -51,7 +51,6 @@ public class ApiClient {
     }
 
     //EVENTS _------___--_-_--_-_-_-___-_--_-__-_--_---_--
-    /*TODO CHECK API*/
     public static Retrofit getRetrofitEvent(){
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -65,7 +64,6 @@ public class ApiClient {
 
         return retrofitCreateEvent;
     }
-    /*TODO*/
 
 
     public static UserService getServiceEvents(){
@@ -74,20 +72,22 @@ public class ApiClient {
     }
 
     //Get EVENTS _------___--_-_--_-_-_-___-_--_-__-_--_---_--
+    public static Retrofit getRetrofitJoinParty(String url){
 
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-    public static Retrofit getRetrofitAllEvent(){
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
 
-        //If condition to ensure we don't create multiple retrofit instances in a single application
-        if (retrofit==null) {
+        Retrofit retrofitlogin =  new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(url).client(okHttpClient).build();
 
-            //Defining the Retrofit using Builder
-            retrofit=new Retrofit.Builder()
-                    .baseUrl("https://iuppartyservice.azurewebsites.net/api/event/")   //This is the only mandatory call on Builder object.
-                    .addConverterFactory(GsonConverterFactory.create()) // Convertor library used to convert response into POJO
-                    .build();
-        }
+        return retrofitlogin;
+    }
 
-        return retrofit;
+    public static UserService getServiceJoinParty(String url){
+        UserService userService = getRetrofitJoinParty(url).create(UserService.class);
+        return userService;
     }
 }

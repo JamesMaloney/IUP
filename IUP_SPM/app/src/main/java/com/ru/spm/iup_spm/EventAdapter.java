@@ -26,7 +26,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         this.eContext = context;
     }
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint({"ViewHolder", "SetTextI18n"})
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -39,17 +39,15 @@ public class EventAdapter extends ArrayAdapter<Event> {
         TextView txtEvent = convertView.findViewById(R.id.txtNameEvent);
         TextView txtDistance = convertView.findViewById(R.id.txtDistanceEvent);
         TextView txtProfile = convertView.findViewById(R.id.txtNameProfile);
-        TextView txtMaxPeople = convertView.findViewById(R.id.txtMPeople);
         TextView txtParticipants = convertView.findViewById(R.id.txtParticipants);
 
         imgEvent.setImageBitmap(BitmapFactory.decodeByteArray((Base64.decode(getItem(position).getImage(), Base64.DEFAULT)),0, (Base64.decode(getItem(position).getImage(), Base64.DEFAULT).length)));
         imgProfile.setImageResource(R.drawable.profile);
 
-        txtDistance.setText(String.valueOf(getItem(position).getDistance()));
+        txtDistance.setText(String.valueOf(getItem(position).getDistance())+"km");
         txtEvent.setText(getItem(position).getName());
         txtProfile.setText(getItem(position).getHostName());
-        txtParticipants.setText(String.valueOf(getItem(position).getParticipants()));
-        txtMaxPeople.setText(String.valueOf(getItem(position).getMaxPeople()));
+        txtParticipants.setText(String.valueOf(getItem(position).getParticipants())+" / "+String.valueOf(getItem(position).getMaxPeople()));
         return convertView;
     }
 

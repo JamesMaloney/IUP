@@ -30,8 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Home extends AppCompatActivity {
     LoginResponse loginResponse;
-    private BottomNavigationView buttonNavigationView;
-    private Button btnInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class Home extends AppCompatActivity {
             getLocation();
         }
         //Button info
-        btnInfo = (Button) findViewById(R.id.btnInfo);
+        Button btnInfo = (Button) findViewById(R.id.btnInfo);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +52,7 @@ public class Home extends AppCompatActivity {
         });
 
         //Fragments!
-        buttonNavigationView = findViewById(R.id.bottom_nav);
+        BottomNavigationView buttonNavigationView = findViewById(R.id.bottom_nav);
         buttonNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
 

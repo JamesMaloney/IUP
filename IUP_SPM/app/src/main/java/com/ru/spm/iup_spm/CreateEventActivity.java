@@ -1,23 +1,14 @@
 package com.ru.spm.iup_spm;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
@@ -27,35 +18,21 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
-import org.w3c.dom.Text;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class CreateEventActivity extends AppCompatActivity {
@@ -149,7 +126,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     EventRequest eventRequest = new EventRequest();
                     eventRequest.setName(Name.getText().toString());
                     eventRequest.setDateEnd(DateEnd.getText().toString());
-                    eventRequest.setDateStart(DateStart .getText().toString());
+                    eventRequest.setDateStart(DateStart.getText().toString());
                     eventRequest.setDescription(Description.getText().toString());
                     eventRequest.setMaxPeople(Integer.parseInt(MaxPeople.getText().toString()));
 

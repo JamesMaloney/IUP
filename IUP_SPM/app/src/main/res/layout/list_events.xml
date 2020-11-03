@@ -15,7 +15,6 @@
         android:scaleType="centerCrop"
         tools:srcCompat="@drawable/party2" />
 
-
     <TextView
         android:id="@+id/txtNameProfile"
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
@@ -31,41 +30,29 @@
     <TextView
         android:id="@+id/txtNameEvent"
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-        android:layout_width="136dp"
+        android:layout_width="167dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgEvent"
-        android:layout_marginStart="230dp"
-        android:layout_marginLeft="230dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginLeft="200dp"
         android:layout_marginTop="15dp"
+        android:gravity="right"
         android:inputType="text"
         android:maxLines="1"
-        android:gravity="right"
         android:text="@string/fantastic_event"
         tools:ignore="RtlHardcoded,TextViewEdits" />
 
     <TextView
         android:id="@+id/txtDistanceEvent"
-        android:layout_width="67dp"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNameEvent"
+        android:layout_marginStart="280dp"
         android:layout_marginLeft="280dp"
         android:layout_marginTop="0dp"
         android:gravity="right"
         android:inputType="text"
         android:text="@string/_1_6"
-        android:layout_marginStart="280dp"
-        tools:ignore="RtlHardcoded,TextViewEdits" />
-
-    <TextView
-        android:id="@+id/txtDistanceEventStatic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtNameEvent"
-        android:layout_marginLeft="348dp"
-        android:layout_marginTop="0dp"
-        android:gravity="right"
-        android:inputType="text"
-        android:text="@string/km"
         tools:ignore="RtlHardcoded,TextViewEdits" />
 
     <TextView
@@ -79,45 +66,19 @@
         android:inputType="text"
         android:text="@string/max_people"
         tools:ignore="RtlHardcoded,TextViewEdits" />
-    <TextView
-        android:id="@+id/txtMPeople"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtNameEvent"
-        android:layout_marginLeft="175dp"
-        android:layout_marginTop="0dp"
-        android:gravity="left"
-        android:inputType="text"
-        android:text="@string/_10"
-        tools:ignore="RtlHardcoded,TextViewEdits" />
 
     <TextView
         android:id="@+id/txtParticipants"
-        android:layout_width="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNameEvent"
         android:layout_toRightOf="@+id/txtMaxPeople"
-        android:layout_marginLeft="148dp"
-        android:textAlignment="viewEnd"
-        android:layout_marginTop="0dp"
         android:gravity="left"
-        android:inputType="text"
         android:text="@string/_2"
         tools:ignore="RtlCompat,RtlHardcoded,TextViewEdits,UnknownIdInLayout"
         android:layout_marginStart="148dp"
         android:layout_toEndOf="@+id/txtMaxPeople" />
-    <TextView
-        android:id="@+id/txtSlash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtNameEvent"
-        android:layout_marginLeft="169dp"
-        android:layout_marginTop="0dp"
-        android:gravity="left"
-        android:inputType="text"
-        android:text="@string/slash"
-        android:layout_marginStart="169dp"
-        tools:ignore="RtlHardcoded,TextViewEdits" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardviewimgProfile"

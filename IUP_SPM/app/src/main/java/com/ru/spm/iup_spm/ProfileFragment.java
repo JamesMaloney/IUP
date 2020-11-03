@@ -82,6 +82,15 @@ public class ProfileFragment extends Fragment {
         ratingBar = (RatingBar) view.findViewById(R.id.ratingBarProfile);
         imgProfile = (ImageView)  view.findViewById(R.id.imgProfileChange);
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = "Profile Updated";
+                Toast.makeText(getActivity(), message,Toast.LENGTH_LONG).show();
+                Log.e("ERROR","error");
+            }
+        });
+
         getProfile();
         return view;
     }
@@ -112,9 +121,6 @@ public class ProfileFragment extends Fragment {
                 }else{
                     user = response.body();
                 }
-
-                Log.e("name ",""+user.getName());
-                Log.e("check ",""+TextUtils.isEmpty(user.getImage()));
 
                 /* ASSIGNMENTS */
                 txtBirthday.setText(user.getBirthday());

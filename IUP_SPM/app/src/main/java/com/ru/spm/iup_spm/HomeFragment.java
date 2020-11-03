@@ -5,22 +5,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     public List<Event> events;
     ProgressBar progressBar;
     Button btnReload;
+    ArrayList<Event> arrayEvents = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -55,10 +56,16 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         progressBar = (ProgressBar) view.findViewById(R.id.LoadingLogin);
         lstEvents = (ListView) view.findViewById(R.id.listEvents);
-/*
-        TODO RE ADD
-*/
-        //reload_events();
+        lstEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), PartyActivity.class);
+                intent.putExtra("eventID",arrayEvents.get(position).getEventID());
+                getActivity().startActivity(intent);
+            }
+        });
+
+        reload_events();
 
         btnReload = (Button) view.findViewById(R.id.reload_event);
         btnReload.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +86,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void reload_events() {
-        ArrayList<Event> arrayEvents = new ArrayList<>();
         SharedPreferences preferences = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
         String lati = preferences.getString("latitude","");
         String longi = preferences.getString("longitude","");
@@ -99,6 +105,7 @@ public class HomeFragment extends Fragment {
                 events = response.body();
                 for (Event e : events){
                     arrayEvents.add(new Event(
+                            e.getEventID(),
                             e.getImage(),
                             e.getName(),
                             e.getDistance(),
