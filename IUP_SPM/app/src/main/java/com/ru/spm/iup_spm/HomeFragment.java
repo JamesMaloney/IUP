@@ -123,6 +123,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
+                String message = "No Events near you! Retry later!";
+                Toast.makeText(getActivity(), message,Toast.LENGTH_LONG).show();
                 Log.e("ERROR","error");
             }
         });
